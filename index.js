@@ -5,6 +5,7 @@ const chokidar = require('chokidar');
 const program = require('caporal');
 const fs = require('fs');
 const { spawn } = require('child_process');
+const chalk = require('chalk');
 
 program
     .version('0.0.1')
@@ -20,12 +21,19 @@ program
             throw new Error(`Could not find the file ${name}`);
         }
 
+        let proc;
         // start function has to wait 100ms without a new 'add' before being triggered
         const start = debounce(() => {
-            spawn('node', [name], { stdio: 'inherit' });
+            // If there is a process, kill it
+            if (proc) {
+                proc.kill();
+            }
+            // Let the user know there's a new version of the program running (in cyan color)
+            console.log(chalk.cyan('>>>> Starting process...'));
+            proc = spawn('node', [name], { stdio: 'inherit' });
         }, 100);
 
-        // Watches for file additions, changes, and deletions
+        // Watch for file additions, changes, and deletions
         chokidar
             .watch('.')
             .on('add', start)
