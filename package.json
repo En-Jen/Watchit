@@ -1,0 +1,15 @@
+{
+  "name": "watchit",
+  "version": "1.0.0",
+  "description": "A command line application that watches for changes in a project directory and executes them automatically. Created with Modern JavaScript Bootcamp Course (code-along).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jen Speak",
+  "license": "ISC",
+  "bin": {
+    "watchit": "index.js"
+  }
+}
